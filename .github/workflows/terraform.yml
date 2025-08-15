@@ -3,12 +3,12 @@ name: Cloudcore IAC
 on:
     push:
       branches: 
-        - master
+        - main
       paths: 
         - terraform/**
     pull_request:
       branches: 
-        - master
+        - main
       paths: 
         - terraform/**
 env:
@@ -16,7 +16,7 @@ env:
     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     # S3 bucket for the terraform state. 
-    BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE }}
+    BUCKET_TF_STATE: ${{ secrets.BUCKET_TF }}
     AWS_REGION: us-east-1
 
 jobs:
@@ -58,7 +58,7 @@ jobs:
 
         - name: Terraform Apply
           id: apply
-          if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+          if: github.ref == 'refs/heads/main' && github.event_name == 'push'
           run: terraform apply -auto-approve -input=false -parallelism=1 planfile
 
 
